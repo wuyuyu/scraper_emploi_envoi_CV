@@ -39,26 +39,41 @@ options.headless = True
 
 # run firefox webdriver from executable path of your choice
 driver = webdriver.Chrome(options=options,executable_path=ChromeDriverManager().install())
+
+# query the website and return the html to the variable 'content'
 driver.get(urlpage)
-
 content = driver.page_source
+#print(content)
 
-# query the website and return the html to the variable 'page'
-#page = urllib.request.urlopen(urlpage)
-print(content)
 # parse the html using beautiful soup and store in variable 'soup'
 soup = BeautifulSoup(content,'html.parser')
-#jpage = json.load(page)
-
-#print(jpage)
+#print(soup)
 
 # find results avec les mots clé
-#container = soup.find_next_siblings('div', attrs={'class':'container-result'})
-#results = soup.find_all('div',attrs={'class':'card-body'})
-
+container = soup.find('div', attrs={'class':'container-result'})
+#results = container.find_all('div',attrs={'class':'card-body'})
 #print(container)
-
 #print('Number of results', len(results))
+offers=[]
+companies=[]
+contracts=[]
+locations=[]
+dates=[]
+for div in container.findAll('div', attrs={'class':'card-body'}):
+    titre=div.find('h2', attrs={'class':'card-title'})
+    offers.append(titre.text)
+    entreprise=div.find('p', attrs={'class':'card-offer__company'})
+    companies.append(entreprise.text)
+    ul=div.find('ul', attrs={'class':'important-list'})
+    contrat=ul.findChildren()[0]
+    contracts.append(contrat.text)
+    lieu=ul.findChildren()[2]
+    locations.append(lieu.text)
+    date=ul.findChildren()[4]
+    dates.append(date.text)
+
+df = pd.DataFrame({'Poste':offers,'Entreprise':companies,'Type de contrat':contracts,'Lieu':locations,'Date de publication':dates})
+df.to_csv('rechercheEmploi.csv', index=False, encoding='utf-8')
 
 
 
