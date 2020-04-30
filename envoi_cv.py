@@ -10,7 +10,7 @@ subject = "Candidature pour votre offre emploi."
 body = input("Entrez un message d'envoie: ")+"\n'est un mail envoyé par script de Python, mais en dur "
 sender_email = "yuyuanenzo@gmail.com" # pour l'instant un gmail
 receiver_email = input("Entrez le mail d'envoie: ")
-password = "Evecs870329"
+password = "..."
 
 
 
