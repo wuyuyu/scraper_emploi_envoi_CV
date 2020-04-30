@@ -67,9 +67,9 @@ while True:
 			lienOffreListe.append(lienOffreUrl)
 
 		df = pd.DataFrame({'titre':titreListe,'entreprise':entrepriseListe,'contrat':contratListe,'lieu':lieuListe,'date':dateListe,'lien Offre Url':lienOffreListe}) 
-		df.to_csv('logs.csv', index=False, encoding='utf-8',mode='a')
+		df.to_csv('logs.csv', index=False, encoding='utf-8',mode='a',date_format='%Y-%m-%d %H:%M:%S')
 		
-	time.sleep(3600 * int(temps_intervalle))
+	time.sleep(360 * int(temps_intervalle))
 
 
 
